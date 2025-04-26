@@ -21,9 +21,9 @@ A collaborative real-time code editor built with React, Socket.IO, and Codemirro
 
 # OUTPUT
 
-![Logo](https://github.com/user-attachments/assets/94dfade9-69fd-4157-bc5f-02cf19e3d2cb)
+![Logo](https://github.com/user-attachments/assets/644c46a0-94d8-4710-ac0a-fcd57b589aee)
 
-| ![Screenshot 1](https://github.com/user-attachments/assets/d53c21a1-a4c4-4577-aed1-034d4f2289f4) |
+![Screenshot 1](https://github.com/user-attachments/assets/0f7d5a9b-1f67-4a15-b09f-e13555e9c1db)
 
 
 
@@ -45,7 +45,7 @@ A collaborative real-time code editor built with React, Socket.IO, and Codemirro
 
 ## Deployment
 -The Let's Talk chat app is deployed on Vercel. 
-**[Live Demo](https://real-time-collaboration-tool-fawn.vercel.app/)**
+**[Live Demo](https://real-time-collaboration-tool-iota.vercel.app/)**
 
 
 ## Getting Started
@@ -91,4 +91,5 @@ A collaborative real-time code editor built with React, Socket.IO, and Codemirro
 ## Building for Production
 
 To build the application for production, run:
+
      npm run build
