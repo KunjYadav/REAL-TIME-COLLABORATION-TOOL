@@ -1,0 +1,18 @@
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.logoContainer svg {
+  /* Scale the SVG to fit the container */
+  height: 100%;
+  width: auto;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 700;
+  color: #61dafb; /* React blue color */
+}

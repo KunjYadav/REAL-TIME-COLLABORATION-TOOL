@@ -12,20 +12,15 @@
 
 *MENTOR*: NEELA SANTHOSH
 
-
 ## Description of Task 3
 
 A collaborative real-time code editor built with React, Socket.IO, and Codemirror. This application allows multiple users to join a room and edit code together in real time. The app is deployed on Vercel.
 
-
-
-# OUTPUT
+## OUTPUT
 
 ![Logo](https://github.com/user-attachments/assets/644c46a0-94d8-4710-ac0a-fcd57b589aee)
 
 ![Screenshot 1](https://github.com/user-attachments/assets/0f7d5a9b-1f67-4a15-b09f-e13555e9c1db)
-
-
 
 ## Features
 
@@ -44,9 +39,10 @@ A collaborative real-time code editor built with React, Socket.IO, and Codemirro
 - **Utilities**: UUID for generating unique Room IDs
 
 ## Deployment
--The Let's Talk chat app is deployed on Vercel. 
-**[Live Demo](https://real-time-collaboration-tool-iota.vercel.app/)**
 
+The Real-Time Collaboration Tool is deployed on Vercel.
+
+**[Live Demo](https://real-time-collaboration-tool-iota.vercel.app/)**
 
 ## Getting Started
 
@@ -54,42 +50,44 @@ A collaborative real-time code editor built with React, Socket.IO, and Codemirro
 
 - Node.js and npm installed on your system.
 
-
 ## Installation
 
 1. Clone the repository:
-     ```bash
-          git clone https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git
-          cd REAL-TIME-COLLABORATION-TOOL
-     ```
 
+\\ash
+git clone <https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git>
+cd REAL-TIME-COLLABORATION-TOOL
+\
 2. Install dependencies:
-     ```bash
-          npm install
-     ```
 
+\\ash
+npm install
+\
 3. Create a .env file in the root directory and add the following:
-     ```bash
-          PORT=3000
-          REACT_APP_BACKEND_URL=http://localhost:5000
-     ```
+
+\\ash
+PORT=3000
+REACT_APP_BACKEND_URL=<http://localhost:5000>
+\
 
 ## Running the Application
 
 1. Start the development server:
-     ```bash
-          npm run start:front
-     ```
+
+\\ash
+npm run start:front
+\
 2. Start the backend server:
-     ```bash
-          npm run server:dev
-     ```
-3. Open your browser and navigate to http://localhost:3000.
 
-
+\\ash
+npm run server:dev
+\
+3. Open your browser and navigate to /<http://localhost:3000/>.
 
 ## Building for Production
 
 To build the application for production, run:
 
-     npm run build
+\\ash
+npm run build
+\
