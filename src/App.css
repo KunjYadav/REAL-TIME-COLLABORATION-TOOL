@@ -7,24 +7,23 @@
   --bg-hover: #37373d; /* Sidebar item hover */
   --bg-active: #04395e; /* Active file background */
   --border-color: #333333; /* Borders/Separators */
-  --success-color: #38c172; /* Save/Success */
-  --copy-color: #007acc; /* Copy/Invite blue */
-  --danger-color: #e3342f; /* Leave/Danger */
-  --mono-font: 'Monaco', 'Courier New', monospace;
+  --success-color: #4caf50; /* Changed to standard Material Green for Save */
+  --copy-color: #007bff; /* Changed to standard Bootstrap Blue for Copy/Invite */
+  --danger-color: #dc3545; /* Changed to standard Bootstrap Red for Leave */
+  --mono-font: "Monaco", "Courier New", monospace;
 }
 
 /* Base Styles */
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: var(--bg-dark);
-    color: var(--text-light);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg-dark);
+  color: var(--text-light);
 }
-
 
 /* Home Page */
 .homePageWrapper {
@@ -54,14 +53,13 @@ body {
 }
 
 .logoContainer svg {
-    height: 40px;
+  height: 40px;
 }
 
 .logoText {
-    font-size: 28px;
-    font-weight: 700;
+  font-size: 28px;
+  font-weight: 700;
 }
-
 
 .mainLabel {
   margin-bottom: 20px;
@@ -70,7 +68,6 @@ body {
   text-align: center;
   color: #777;
 }
-
 
 .inputGroup {
   display: flex;
@@ -93,7 +90,6 @@ body {
   border-color: var(--primary-color);
 }
 
-
 .btn {
   border: none;
   padding: 10px;
@@ -103,7 +99,6 @@ body {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-
 
 .joinBtn {
   background: var(--primary-color);
@@ -123,7 +118,6 @@ body {
   color: #999;
 }
 
-
 .createNewBtn {
   color: var(--primary-color);
   text-decoration: underline;
@@ -132,7 +126,6 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
-
 
 .createNewBtn:hover {
   color: var(--copy-color);
@@ -152,20 +145,17 @@ footer a:hover {
   color: var(--primary-color);
 }
 
-
 /* MAIN LAYOUT CHANGES (Editor Page) */
-
 
 .mainWrap {
   display: grid;
   /* Sidebar | Editor | Chat Panel */
-  grid-template-columns: 280px 1fr 300px; 
+  grid-template-columns: 280px 1fr 300px;
   height: 100vh;
   background-color: var(--bg-dark);
 }
 
 /* Sidebar (ASIDE) */
-
 
 .aside {
   background: var(--bg-sidebar);
@@ -173,7 +163,10 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border-color);
-  padding-bottom: 10px; 
+  padding-bottom: 10px;
+  /* Added class for mobile toggling */
+  position: relative; /* Needed for z-index context */
+  z-index: 10;
 }
 
 .logo {
@@ -188,30 +181,26 @@ footer a:hover {
 }
 
 .asideTitle {
-    font-size: 12px;
-    text-transform: uppercase;
-    color: #888;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--border-color);
-    font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: 500;
 }
 
-
 /* File Structure Styles */
-
 
 .fileStructureWrap {
   padding: 0;
 }
 
-
 .fileList {
   display: flex;
   flex-direction: column;
 }
-
 
 .fileItem {
   padding: 6px 8px;
@@ -226,11 +215,9 @@ footer a:hover {
   font-family: var(--mono-font);
 }
 
-
 .fileItem:hover {
   background: var(--bg-hover);
 }
-
 
 .fileItem.activeFile {
   background: var(--bg-active);
@@ -240,28 +227,28 @@ footer a:hover {
 
 .fileIcon {
   /* Adjusted for new SVG component */
-  font-size: 16px; 
+  font-size: 16px;
   line-height: 1;
-  display: flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 16px; /* Explicit size for the icon container */
   height: 16px;
   /* Set color to transparent so the component's internal SVG colors take effect */
-  color: transparent; 
+  color: transparent;
 }
 
 /* CRITICAL FIX: Ensure SVG colors are used by overriding text color inheritance */
 .fileIcon svg {
-    /* Set fill to initial/none to prevent it from inheriting the surrounding text color (which is light gray) */
-    fill: initial; 
+  /* Set fill to initial/none to prevent it from inheriting the surrounding text color (which is light gray) */
+  fill: initial;
 }
 
 .fileName {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
 }
 
 .remoteDot {
@@ -272,17 +259,22 @@ footer a:hover {
 }
 
 @keyframes pulse {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
 }
 /* End File Structure Styles */
 
 /* Clients List */
 
-
 .clientsHeader {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .clientsList {
@@ -302,8 +294,6 @@ footer a:hover {
   color: #999;
 }
 .userName {
-
-
   margin-top: 5px;
   text-align: center;
   max-width: 60px;
@@ -314,7 +304,6 @@ footer a:hover {
 
 /* Controls - Now at bottom of sidebar */
 
-
 .controls {
   display: flex;
   flex-direction: column;
@@ -323,62 +312,113 @@ footer a:hover {
   border-top: 1px solid var(--border-color);
 }
 
-
+/* Base style for all control buttons (desktop and mobile) */
 .iconBtn {
-    background: var(--bg-hover);
-    color: var(--text-light);
-    border: 1px solid var(--bg-hover);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 8px 12px;
-    font-weight: 400;
-    font-size: 14px;
+  background: var(--bg-hover);
+  color: var(--text-light);
+  border: 1px solid transparent; /* Use transparent border by default */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px; /* Slightly more padding for better feel */
+  font-weight: 600; /* Increased weight */
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px; /* Slight roundness */
 }
 
 .iconBtn:hover {
-    background: #444;
-    border-color: #555;
-    color: #fff;
+  background: #444;
+  color: #fff;
+  border-color: #555;
 }
+
+/* Specific production styles for save, copy, leave */
 
 .saveBtn {
   background: var(--success-color);
-  color: var(--bg-dark);
+  color: white; /* Changed text color to white for contrast */
 }
 
 .saveBtn:hover {
-    background: #32a966;
+  background: #3d9941; /* Darker green on hover */
+  border-color: #3d9941;
+  color: white;
 }
 
 .copyBtn {
   background: var(--copy-color);
-  color: #fff;
+  color: white; /* Changed text color to white for contrast */
 }
 
 .copyBtn:hover {
-    background: #006bb3;
+  background: #0069d9; /* Darker blue on hover */
+  border-color: #0069d9;
+  color: white;
 }
 
 .leaveBtn {
-    background: var(--danger-color);
-    color: #fff;
+  background: var(--danger-color);
+  color: white; /* Changed text color to white for contrast */
 }
 
 .leaveBtn:hover {
-    background: #c32727;
+  background: #c82333; /* Darker red on hover */
+  border-color: #c82333;
+  color: white;
 }
 
 /* Editor */
 .editorWrap {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* For mobile controls */
 }
+
+/* New: Mobile control bar */
+.mobileControls {
+  display: none; /* Hide by default on desktop */
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 10px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.mobileLeft,
+.mobileRight,
+.mobileCenter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobileControls .btn {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  width: auto; /* Override 100% width from general .iconBtn */
+}
+
+.mobileCenter {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-light);
+  max-width: 40%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* End Mobile control bar */
+
 .CodeMirror {
   min-height: 100%;
   height: 100%;
-  font-size: 16px; 
+  font-size: 16px;
   line-height: 1.5;
   padding-top: 15px;
   font-family: var(--mono-font);
@@ -466,7 +506,6 @@ footer a:hover {
   margin-right: auto;
 }
 
-
 .chatMessageLocal {
   align-self: flex-end;
   margin-left: auto;
@@ -501,7 +540,99 @@ footer a:hover {
 }
 
 .chatMessageLocal .chatText {
-  background: var(--copy-color); /* Use a less distracting color for local messages */
+  background: var(
+    --copy-color
+  ); /* Use a less distracting color for local messages */
   color: white;
   border-top-right-radius: 4px;
+}
+
+/* --- Mobile Responsiveness (Max-width 768px) --- */
+
+/* New: Backdrop for closing mobile panels */
+.mobile-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 15; /* Below panels (z-index: 20) but above everything else */
+  display: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.mobile-backdrop.show-backdrop {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mainWrap {
+    /* Single column layout on mobile */
+    grid-template-columns: 1fr;
+  }
+
+  /* Show mobile controls */
+  .mobileControls {
+    display: flex;
+  }
+
+  /* Sidebar and Chat Panel become overlays/off-canvas elements */
+  .aside,
+  .chatPanelWrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 20; /* Above everything else */
+    width: 280px; /* Fixed width for the overlay */
+    transition: transform 0.3s ease-in-out;
+    height: 100%;
+  }
+
+  /* Default state: off-screen */
+  .aside {
+    transform: translateX(-100%);
+    left: 0;
+    border-right: none;
+  }
+
+  .chatPanelWrap {
+    transform: translateX(100%);
+    right: 0;
+    border-left: none;
+  }
+
+  /* Active state: on-screen */
+  .aside.show-panel {
+    transform: translateX(0);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .chatPanelWrap.show-panel {
+    transform: translateX(0);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Editor is full width on mobile */
+  .editorWrap {
+    grid-column: 1 / -1;
+  }
+
+  /* Hide the desktop controls and logo on mobile */
+  .aside > .logo,
+  .aside > .controls {
+    display: none;
+  }
+
+  /* Re-enable display for internal sidebar parts that are now part of the overlay */
+  .aside {
+    display: flex;
+  }
+}
+
+/* Optional: Adjustments for smaller screens (e.g., phones) */
+@media (max-width: 480px) {
+  .formWrapper {
+    padding: 20px;
+  }
 }

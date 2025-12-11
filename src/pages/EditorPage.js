@@ -15,6 +15,28 @@ import {
 import { useSocket } from "../hooks/useSocket";
 // import ACTIONS from "../Actions"; // FIX: Import ACTIONS
 
+// New Component for Mobile Toggle Button
+const MobilePanelToggle = ({ label, icon, onClick, active }) => (
+    <button 
+        className={`btn iconBtn ${active ? 'active-mobile-btn' : ''}`} 
+        onClick={onClick}
+    >
+        <span role="img" aria-label={label}>{icon}</span>
+    </button>
+);
+
+// New Component for Mobile Action Button (Save/Copy/Leave)
+const MobilePanelAction = ({ label, icon, onClick, colorClass }) => (
+    <button 
+        className={`btn iconBtn ${colorClass}`} 
+        onClick={onClick}
+        title={label}
+    >
+        <span role="img" aria-label={label}>{icon}</span>
+    </button>
+);
+
+
 const EditorPage = () => {
   const location = useLocation();
   const { roomId } = useParams();
@@ -23,12 +45,18 @@ const EditorPage = () => {
   const codeRef = useRef(null);
   const username = location.state?.username;
 
+
   const socketRef = useRef(null);
+
 
   // New File State Management
   const [files, setFiles] = useState({});
   const [activeFileId, setActiveFileId] = useState("");
   const [language, setLanguage] = useState("javascript");
+  
+  // Mobile Responsiveness State
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   // CRITICAL FIX: Refs for latest state values in callbacks
   const activeFileIdRef = useRef(activeFileId);
@@ -40,6 +68,7 @@ const EditorPage = () => {
     filesRef.current = files;
   }, [files]);
   // END CRITICAL FIX
+
 
   // Effect to update codeRef and language when activeFileId or file content changes
   useEffect(() => {
@@ -53,7 +82,9 @@ const EditorPage = () => {
       codeRef.current = content; // Keep the ref updated with the content of the new file
       setLanguage(language);
 
+
       // The Editor component will pick up the content change via its `code` prop.
+
     } else if (Object.keys(files).length > 0 && !activeFileId) {
       // FIX: If files are loaded but activeFileId is not set (e.g., initial state sync)
       // This should ideally be handled by SYNC_FILES, but this is a fallback.
@@ -62,12 +93,15 @@ const EditorPage = () => {
     }
   }, [activeFileId, files]);
 
+
   // Local handler to update code content of the active file
   const onCodeChangeLocal = useCallback(
     (code) => {
       const currentActiveFileId = activeFileIdRef.current;
 
+
       codeRef.current = code;
+
 
       setFiles((prev) => {
         if (prev[currentActiveFileId]) {
@@ -87,6 +121,7 @@ const EditorPage = () => {
     [] // NO dependencies - uses activeFileIdRef.current
   );
 
+
   // Remote file synchronization handler (from useSocket)
   const onFileUpdate = useCallback(
     (fileId, code, allFiles = null, newActiveFileId = null) => {
@@ -98,6 +133,7 @@ const EditorPage = () => {
         currentActiveFileId: activeFileIdRef.current,
       });
 
+
       // Handle full state synchronization on join (triggered by ACTIONS.SYNC_FILES from server)
       if (allFiles && newActiveFileId) {
         console.log(
@@ -108,6 +144,7 @@ const EditorPage = () => {
         return;
       }
 
+
       // Handle remote code change for a specific file (ACTIONS.CODE_CHANGE)
       if (code !== undefined && code !== null) {
         setFiles((prev) => {
@@ -115,6 +152,7 @@ const EditorPage = () => {
           // CRITICAL FIX: Check if the receiving client's active file is NOT the one being updated
           const isRemoteUpdateIndicatorNeeded =
             fileId !== activeFileIdRef.current;
+
 
           const newFiles = {
             ...prev,
@@ -127,9 +165,11 @@ const EditorPage = () => {
             },
           };
 
+
           return newFiles;
         });
       }
+
 
       // Handle remote file switch (ACTIONS.FILE_SWITCH)
       if (newActiveFileId) {
@@ -139,6 +179,7 @@ const EditorPage = () => {
             "[EditorPage] Remote/Forced file switch to:",
             newActiveFileId
           );
+
 
           // Update files state to clear the remoteUpdated flag for the new active file
           setFiles((prev) => {
@@ -155,6 +196,7 @@ const EditorPage = () => {
             return prev;
           });
 
+
           setActiveFileId(newActiveFileId);
         }
       }
@@ -162,18 +204,22 @@ const EditorPage = () => {
     [] // NO dependencies - use refs for state access
   );
 
+
   // Use the custom hook, passing the ref to be initialized within the hook
   const { clients, messages, sendMessage, emitCodeChange, emitFileSwitch } =
     useSocket(roomId, username, onFileUpdate, socketRef);
+
 
   // Handler for local file structure click
   const handleFileSelect = useCallback(
     (fileId) => {
       // The socket event will trigger the setActiveFileId via the server bounce-back (onFileUpdate)
       emitFileSwitch(fileId);
+      setShowSidebar(false); // Close sidebar on mobile after selecting a file
     },
     [emitFileSwitch]
   );
+
 
   // ... (copyRoomId, leaveRoom, saveCode functions remain the same)
   async function copyRoomId() {
@@ -186,15 +232,18 @@ const EditorPage = () => {
     }
   }
 
+
   function leaveRoom() {
     reactNavigator("/");
   }
+
 
   function saveCode() {
     if (!codeRef.current) {
       toast.error("Editor is empty, nothing to save.");
       return;
     }
+
 
     const fileExtensions = {
       javascript: "js",
@@ -203,11 +252,13 @@ const EditorPage = () => {
       python: "py",
     };
 
+
     const fileInfo = filesRef.current[activeFileIdRef.current]; // Use ref for latest info
     const extension =
       fileInfo && fileInfo.language ? fileExtensions[fileInfo.language] : "txt";
     // NOTE: If activeFileId is an empty string, this might fail, but it should be set by now.
     const filename = `${activeFileIdRef.current.split(".")[0]}.${extension}`;
+
 
     const blob = new Blob([codeRef.current], {
       type: "text/plain;charset=utf-8",
@@ -221,32 +272,60 @@ const EditorPage = () => {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
+
     toast.success(`File saved as ${filename}`);
   }
+
 
   if (!location.state) {
     return <Navigate to='/' />;
   }
 
+
   // Determine the content to display in the editor
   const editorContent =
     activeFileId && files[activeFileId] ? files[activeFileId].content : "";
+    
+  // Handlers for mobile toggling
+  const toggleSidebar = () => {
+      setShowSidebar(prev => !prev);
+      if (showChat) setShowChat(false); // Close chat if opening sidebar
+  };
+  
+  const toggleChat = () => {
+      setShowChat(prev => !prev);
+      if (showSidebar) setShowSidebar(false); // Close sidebar if opening chat
+  };
+
+  const closePanels = () => {
+    setShowSidebar(false);
+    setShowChat(false);
+  }
+
 
   return (
     <div className='mainWrap'>
+      {/* NEW: Mobile Backdrop */}
+      <div 
+        className={`mobile-backdrop ${showSidebar || showChat ? 'show-backdrop' : ''}`}
+        onClick={closePanels}
+      ></div>
+
       {/* 1. ASIDE - Sidebar for file structure and clients */}
-      <div className='aside'>
+      <div className={`aside ${showSidebar ? 'show-panel' : ''}`}>
         <div className='logo'>
           <Logo size='30px' />
         </div>
         <div className='asideInner'>
           <h3 className='asideTitle'>Explorer</h3>
 
+
           <FileStructure
             files={files}
             activeFileId={activeFileId}
             onFileSelect={handleFileSelect}
           />
+
 
           <h3 className='asideTitle clientsHeader'>
             Connected Users ({clients.length})
@@ -258,7 +337,8 @@ const EditorPage = () => {
           </div>
         </div>
 
-        {/* Floating Controls at the bottom of the sidebar */}
+
+        {/* Floating Controls at the bottom of the sidebar (Desktop only) */}
         <div className='controls'>
           <button
             className='btn iconBtn saveBtn'
@@ -272,20 +352,59 @@ const EditorPage = () => {
             onClick={copyRoomId}
             title='Copy Room ID'
           >
-            <span>&#x2398;</span> Invite
+            <span>&#x27A1;</span> Invite
           </button>
           <button
             className='btn iconBtn leaveBtn'
             onClick={leaveRoom}
             title='Leave Room'
           >
-            <span>&#x2716;</span> Leave
+            <span>&#x274C;</span> Leave
           </button>
         </div>
       </div>
 
+
       {/* 2. EDITOR AREA */}
       <div className='editorWrap'>
+        
+        {/* NEW: Mobile Controls Bar */}
+        <div className='mobileControls'>
+            <div className="mobileLeft">
+                <MobilePanelToggle 
+                    label='Files' 
+                    icon='&#x1F4C1;' 
+                    onClick={toggleSidebar} 
+                    active={showSidebar}
+                />
+            </div>
+
+            <div className="mobileCenter" title={activeFileId}>
+                {activeFileId || 'Select a File'}
+            </div>
+
+            <div className="mobileRight">
+                <MobilePanelAction 
+                    label='Save' 
+                    icon='&#x1F4BE;' 
+                    onClick={saveCode} 
+                    colorClass='saveBtn'
+                />
+                <MobilePanelAction 
+                    label='Invite' 
+                    icon='&#x27A1;' 
+                    onClick={copyRoomId} 
+                    colorClass='copyBtn'
+                />
+                <MobilePanelToggle 
+                    label='Chat' 
+                    icon='&#x1F4AC;' 
+                    onClick={toggleChat} 
+                    active={showChat}
+                />
+            </div>
+        </div>
+
         <Editor
           socketRef={socketRef}
           roomId={roomId}
@@ -299,8 +418,9 @@ const EditorPage = () => {
         />
       </div>
 
+
       {/* 3. CHAT PANEL */}
-      <div className='chatPanelWrap'>
+      <div className={`chatPanelWrap ${showChat ? 'show-panel' : ''}`}>
         <Chat
           messages={messages}
           sendMessage={sendMessage}
@@ -310,5 +430,6 @@ const EditorPage = () => {
     </div>
   );
 };
+
 
 export default EditorPage;
