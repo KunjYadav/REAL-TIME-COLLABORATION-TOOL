@@ -1,52 +1,48 @@
 const express = require("express");
 const app = express();
 const http = require("http");
-const path = require("path");
+// const path = require("path"); // Removed as it's no longer needed for static serving
 const { Server } = require("socket.io");
 const ACTIONS = require("../src/Actions");
 const cors = require("cors");
 
-
 // 1. Initialize HTTP server with Express app
 const server = http.createServer(app);
 
+// Apply CORS middleware to the Express app itself for any other requests
+// For Vercel, this is usually needed for API endpoints.
+app.use(cors());
 
+// --- Socket.IO Configuration ---
 // 2. Initialize Socket.IO server by passing the HTTP server
+// CRITICAL FIX: The path must be specified to match the vercel.json route
 const io = new Server(server, {
-  // Allow all origins for the deployment setup
+  path: "/socket.io/", // Specify the path for Socket.IO connections
+  // Allow all origins for the deployment setup (Vercel domain vs local)
   cors: {
     origin: "*", 
     methods: ["GET", "POST"]
   }
 });
 
-
-app.use(cors());
-
-
-// --- Production Setup for Serving Frontend ---
-// Serve the static files from the build folder for the root path
+// REMOVED: Production Setup for Serving Frontend (Vercel static build handles this now)
+/*
 app.use(express.static("build"));
-
-
-// For any request that is not a static file, serve the index.html from the build folder
-// This handles client-side routing.
 app.use((req, res, next) => {
-  // Use a fallback to index.html for client-side routing if the path doesn't point to a file
   if (!req.path.includes('.')) {
     res.sendFile(path.join(__dirname, "../build", "index.html"));
   } else {
     next();
   }
 });
+*/
 // ------------------------------------
-
 
 const userSocketMap = {};
 
+
 // New structure to store room state: { roomId: { files: {}, activeFileId: '' } }
 const roomStateMap = {};
-
 
 function getAllConnectedClients(roomId) {
   return Array.from(io.sockets.adapter.rooms.get(roomId) || []).map(
@@ -59,15 +55,12 @@ function getAllConnectedClients(roomId) {
   );
 }
 
-
 io.on("connection", (socket) => {
   console.log("socket connected", socket.id);
-
 
   socket.on(ACTIONS.JOIN, ({ roomId, username }) => {
     userSocketMap[socket.id] = username;
     socket.join(roomId);
-
 
     if (!roomStateMap[roomId]) {
       roomStateMap[roomId] = {
@@ -93,7 +86,6 @@ io.on("connection", (socket) => {
       };
     }
 
-
     const clients = getAllConnectedClients(roomId);
     clients.forEach(({ socketId }) => {
       io.to(socketId).emit(ACTIONS.JOINED, {
@@ -103,10 +95,8 @@ io.on("connection", (socket) => {
       });
     });
 
-
     io.to(socket.id).emit(ACTIONS.SYNC_FILES, roomStateMap[roomId]);
   });
-
 
   socket.on(ACTIONS.CODE_CHANGE, ({ roomId, code, fileId }) => {
     if (
@@ -116,7 +106,6 @@ io.on("connection", (socket) => {
     ) {
       roomStateMap[roomId].files[fileId].content = code;
 
-
       socket.in(roomId).emit(ACTIONS.CODE_CHANGE, {
         code,
         fileId,
@@ -125,14 +114,12 @@ io.on("connection", (socket) => {
     }
   });
 
-
   socket.on(ACTIONS.FILE_SWITCH, ({ roomId, fileId }) => {
     if (roomStateMap[roomId]) {
       roomStateMap[roomId].activeFileId = fileId;
     }
     io.to(roomId).emit(ACTIONS.FILE_SWITCH, { fileId });
   });
-
 
   socket.on(ACTIONS.SEND_MESSAGE, ({ roomId, message }) => {
     const username = userSocketMap[socket.id];
@@ -142,7 +129,6 @@ io.on("connection", (socket) => {
       socketId: socket.id,
     });
   });
-
 
   socket.on("disconnecting", () => {
     const rooms = [...socket.rooms];
@@ -157,7 +143,15 @@ io.on("connection", (socket) => {
   });
 });
 
+// CRITICAL FIX: Add a simple GET route for the serverless function.
+// This is not strictly required but can help with Vercel's readiness checks.
+app.get('/', (req, res) => {
+    res.send('Realtime Editor API is running.');
+});
+
 
 // 3. START the HTTP server listening on the port provided by the hosting platform
+// NOTE: Vercel serverless functions handle the listening internally, 
+// but we keep the listener for local development compatibility.
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Listening on port ${PORT}`));
