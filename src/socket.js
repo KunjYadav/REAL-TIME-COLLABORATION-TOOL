@@ -8,6 +8,8 @@ export const initSocket = async () => {
     reconnectionDelayMax: 5000,
     reconnectionAttempts: 5,
     transports: ["websocket", "polling"],
+    // CRITICAL FIX: Specify the path to match the Vercel routing
+    path: "/socket.io/",
   };
   
   // CRITICAL FIX: Determine the backend URL
@@ -21,6 +23,7 @@ export const initSocket = async () => {
     // Use REACT_APP_BACKEND_URL for local development
     backendUrl = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   }
+
 
   return io(backendUrl, options);
 };
