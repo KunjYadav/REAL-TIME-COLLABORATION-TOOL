@@ -24,12 +24,13 @@
   },
   "scripts": {
     "start:front": "react-scripts start",
-    "start": "npm run start:front",
+    "start:server": "nodemon api/index.js",
+    "start": "concurrently \"npm run start:server\" \"npm run start:front\"",
     "build": "react-scripts build",
     "server:dev": "nodemon api/index.js",
-    "server:prod": "node api/index.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "preinstall": "mkdir -p build"
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +52,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "concurrently": "^8.2.2",
     "nodemon": "^3.0.3"
   }
 }
