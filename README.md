@@ -54,40 +54,44 @@ The Real-Time Collaboration Tool is deployed on Vercel.
 
 1. Clone the repository:
 
-\\ash
+```bash
 git clone <https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git>
 cd REAL-TIME-COLLABORATION-TOOL
-\
+```
+
 2. Install dependencies:
 
-\\ash
+```bash
 npm install
-\
+```
+
 3. Create a .env file in the root directory and add the following:
 
-\\ash
+```bash
 PORT=3000
 REACT_APP_BACKEND_URL=<http://localhost:5000>
-\
+```bash
 
 ## Running the Application
 
 1. Start the development server:
 
-\\ash
+```bash
 npm run start:front
-\
+```
+
 2. Start the backend server:
 
-\\ash
+```bash
 npm run server:dev
-\
+```
+
 3. Open your browser and navigate to /<http://localhost:3000/>.
 
 ## Building for Production
 
 To build the application for production, run:
 
-\\ash
+```bash
 npm run build
-\
+```
