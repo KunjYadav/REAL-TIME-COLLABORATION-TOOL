@@ -55,7 +55,7 @@ The Real-Time Collaboration Tool is deployed on Vercel.
 1. Clone the repository:
 
 ```bash
-git clone <https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git>
+git clone [https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git](https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git)
 cd REAL-TIME-COLLABORATION-TOOL
 ```
 
@@ -70,7 +70,7 @@ npm install
 ```bash
 PORT=3000
 REACT_APP_BACKEND_URL=<http://localhost:5000>
-```bash
+```
 
 ## Running the Application
 
