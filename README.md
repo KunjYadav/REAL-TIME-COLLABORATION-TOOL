@@ -55,7 +55,7 @@ The Real-Time Collaboration Tool is deployed on Vercel.
 1. Clone the repository:
 
 ```bash
-git clone 'https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git'
+git clone https://github.com/KunjYadav/REAL-TIME-COLLABORATION-TOOL.git
 cd REAL-TIME-COLLABORATION-TOOL
 ```
 
