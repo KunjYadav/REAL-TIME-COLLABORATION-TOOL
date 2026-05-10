@@ -1,24 +1,25 @@
 :root {
-  /* VS Code Inspired Dark Theme */
-  --primary-color: #61dafb; /* React Blue for accents/text */
-  --text-light: #cccccc; /* Default text */
-  --bg-dark: #1e1e1e; /* Editor Background (Monokai default is similar) */
-  --bg-sidebar: #252526; /* Sidebar/Chat Panel Background */
-  --bg-hover: #37373d; /* Sidebar item hover */
-  --bg-active: #04395e; /* Active file background */
-  --border-color: #333333; /* Borders/Separators */
-  --success-color: #4caf50; /* Changed to standard Material Green for Save */
-  --copy-color: #007bff; /* Changed to standard Bootstrap Blue for Copy/Invite */
-  --danger-color: #dc3545; /* Changed to standard Bootstrap Red for Leave */
+  /* Cyberpunk / Neon Glow Theme */
+  --primary-color: #22d3ee; /* Neon Cyan from logo */
+  --secondary-color: #a855f7; /* Neon Purple from logo */
+  --text-light: #e2e8f0;
+  --bg-dark: #121212; /* Deep almost-black background */
+  --bg-sidebar: #1e1e1e; /* Slightly lighter panels */
+  --bg-hover: #2d2d30;
+  --bg-active: rgba(168, 85, 247, 0.15); /* Purple tint for active file */
+  --border-color: #2a2a2a;
+  --success-color: #10b981; /* Neon Emerald Green */
+  --copy-color: #a855f7; /* Neon Purple */
+  --danger-color: #f43f5e; /* Neon Rose/Red */
   --mono-font: "Monaco", "Courier New", monospace;
 }
 
 /* Base Styles */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg-dark);
@@ -41,8 +42,9 @@ body {
   border-radius: 6px;
   width: 350px;
   max-width: 90%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--border-color);
+  /* Option 3: Cyberpunk Glow */
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.15);
 }
 
 .homePageLogo {
@@ -59,6 +61,7 @@ body {
 .logoText {
   font-size: 28px;
   font-weight: 700;
+  color: var(--primary-color);
 }
 
 .mainLabel {
@@ -66,7 +69,7 @@ body {
   font-size: 1.1rem;
   font-weight: 300;
   text-align: center;
-  color: #777;
+  color: #888;
 }
 
 .inputGroup {
@@ -80,14 +83,15 @@ body {
   outline: none;
   border: 1px solid var(--border-color);
   margin-bottom: 12px;
-  background: #3c3c3c;
+  background: #2a2a2a;
   color: var(--text-light);
   font-size: 15px;
-  transition: border-color 0.2s;
+  transition: all 0.3s ease;
 }
 
 .inputBox:focus {
   border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(34, 211, 238, 0.3);
 }
 
 .btn {
@@ -102,13 +106,15 @@ body {
 
 .joinBtn {
   background: var(--primary-color);
-  color: var(--bg-sidebar);
+  color: #000;
   width: 100%;
   margin-top: 10px;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
 }
 
 .joinBtn:hover {
-  background: #a4e5f7;
+  background: #67e8f9;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
 }
 
 .createInfo {
@@ -122,13 +128,16 @@ body {
   color: var(--primary-color);
   text-decoration: underline;
   text-underline-offset: 2px;
-  transition: color 0.2s;
+  transition:
+    color 0.2s,
+    text-shadow 0.2s;
   font-weight: 500;
   cursor: pointer;
 }
 
 .createNewBtn:hover {
-  color: var(--copy-color);
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
 }
 
 footer {
@@ -137,7 +146,7 @@ footer {
   color: #777;
 }
 footer a {
-  color: var(--copy-color);
+  color: var(--secondary-color);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -162,16 +171,18 @@ footer a:hover {
   color: var(--text-light);
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border-color);
+  /* Cyberpunk: Subtle purple border to separate from editor */
+  border-right: 1px solid rgba(168, 85, 247, 0.15); 
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
   padding-bottom: 10px;
-  /* Added class for mobile toggling */
-  position: relative; /* Needed for z-index context */
+  position: relative; 
   z-index: 10;
 }
 
 .logo {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid rgba(34, 211, 238, 0.15); /* Cyan border */
   padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .asideInner {
@@ -180,15 +191,32 @@ footer a:hover {
   padding: 0 15px;
 }
 
+/* Custom Scrollbar for Explorer */
+.asideInner::-webkit-scrollbar {
+  width: 6px;
+}
+.asideInner::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+.asideInner::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3); /* Purple scrollbar */
+  border-radius: 10px;
+}
+.asideInner::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.6);
+}
+
 .asideTitle {
-  font-size: 12px;
+  font-size: 13px;
   text-transform: uppercase;
-  color: #888;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--border-color);
-  font-weight: 500;
+  color: var(--secondary-color); /* Purple text */
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.3);
+  letter-spacing: 1px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+  font-weight: 600;
 }
 
 /* File Structure Styles */
@@ -200,47 +228,53 @@ footer a:hover {
 .fileList {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .fileItem {
-  padding: 6px 8px;
+  padding: 8px 12px;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.2s, color 0.2s;
+  border-radius: 0 6px 6px 0;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-size: 14px;
-  color: #ccc;
+  color: #94a3b8;
   font-family: var(--mono-font);
+  border-left: 3px solid transparent;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .fileItem:hover {
-  background: var(--bg-hover);
+  background: rgba(34, 211, 238, 0.05);
+  border-left-color: rgba(34, 211, 238, 0.3);
+  color: var(--text-light);
 }
 
 .fileItem.activeFile {
-  background: var(--bg-active);
-  color: #fff;
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.15) 0%, transparent 100%);
+  color: var(--primary-color);
   font-weight: 600;
+  border-left: 3px solid var(--primary-color); 
+  box-shadow: inset 2px 0 10px rgba(34, 211, 238, 0.1);
 }
 
 .fileIcon {
-  /* Adjusted for new SVG component */
   font-size: 16px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px; /* Explicit size for the icon container */
+  width: 16px; 
   height: 16px;
-  /* Set color to transparent so the component's internal SVG colors take effect */
   color: transparent;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
 }
 
 /* CRITICAL FIX: Ensure SVG colors are used by overriding text color inheritance */
 .fileIcon svg {
-  /* Set fill to initial/none to prevent it from inheriting the surrounding text color (which is light gray) */
+  /* Set fill to initial/none to prevent it from inheriting the surrounding text color */
   fill: initial;
 }
 
@@ -260,21 +294,27 @@ footer a:hover {
 
 @keyframes pulse {
   0% {
-    opacity: 0.5;
+    opacity: 0.3;
+    text-shadow: none;
   }
   50% {
     opacity: 1;
+    text-shadow: 0 0 8px var(--success-color);
   }
   100% {
-    opacity: 0.5;
+    opacity: 0.3;
+    text-shadow: none;
   }
 }
-/* End File Structure Styles */
 
 /* Clients List */
 
 .clientsHeader {
   margin-top: 30px;
+  /* Override default asideTitle color specifically for clients to add variety */
+  color: var(--primary-color); 
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.3);
+  border-bottom-color: rgba(34, 211, 238, 0.15);
 }
 
 .clientsList {
@@ -291,83 +331,94 @@ footer a:hover {
   flex-direction: column;
   font-weight: 400;
   font-size: 0.75rem;
-  color: #999;
+  color: #ccc;
+  transition: all 0.3s ease;
 }
+
+.client:hover {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}
+
+/* Add a subtle glow to the avatars */
+.client > div {
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: 14px;
+}
+
 .userName {
-  margin-top: 5px;
+  margin-top: 6px;
   text-align: center;
   max-width: 60px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
-
-/* Controls - Now at bottom of sidebar */
-
+/* Floating Controls - Cyberpunk Glassmorphism */
 .controls {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 10px 15px 0;
-  border-top: 1px solid var(--border-color);
+  flex-direction: row; /* Horizontal alignment */
+  gap: 12px;
+  padding: 12px 18px;
+  background: rgba(30, 30, 30, 0.65); /* Semi-transparent background */
+  backdrop-filter: blur(12px); /* Glassmorphism effect */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(34, 211, 238, 0.25); /* Cyan glowing border */
+  border-radius: 50px; /* Pill shape */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(34, 211, 238, 0.1);
+  z-index: 100;
 }
 
-/* Base style for all control buttons (desktop and mobile) */
+/* Base style for all control buttons */
 .iconBtn {
   background: var(--bg-hover);
   color: var(--text-light);
-  border: 1px solid transparent; /* Use transparent border by default */
-  width: 100%;
+  border: 1px solid transparent; 
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 12px; /* Slightly more padding for better feel */
-  font-weight: 600; /* Increased weight */
+  padding: 10px 20px; 
+  font-weight: 600; 
   font-size: 14px;
   box-sizing: border-box;
-  border-radius: 4px; /* Slight roundness */
+  border-radius: 30px; /* Fully rounded inner buttons */
+  transition: all 0.3s ease;
 }
 
 .iconBtn:hover {
-  background: #444;
-  color: #fff;
-  border-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-
-/* Specific production styles for save, copy, leave */
 
 .saveBtn {
   background: var(--success-color);
-  color: white; /* Changed text color to white for contrast */
+  color: #000; 
 }
-
 .saveBtn:hover {
-  background: #3d9941; /* Darker green on hover */
-  border-color: #3d9941;
-  color: white;
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
 }
 
 .copyBtn {
   background: var(--copy-color);
-  color: white; /* Changed text color to white for contrast */
+  color: #fff; 
 }
-
 .copyBtn:hover {
-  background: #0069d9; /* Darker blue on hover */
-  border-color: #0069d9;
-  color: white;
+  box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4);
 }
 
 .leaveBtn {
   background: var(--danger-color);
-  color: white; /* Changed text color to white for contrast */
+  color: #fff; 
 }
-
 .leaveBtn:hover {
-  background: #c82333; /* Darker red on hover */
-  border-color: #c82333;
-  color: white;
+  box-shadow: 0 5px 15px rgba(244, 63, 94, 0.4);
 }
 
 /* Editor */
@@ -375,12 +426,12 @@ footer a:hover {
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative; /* For mobile controls */
+  position: relative;
+  overflow: hidden;
 }
 
-/* New: Mobile control bar */
 .mobileControls {
-  display: none; /* Hide by default on desktop */
+  display: none;
   background: var(--bg-sidebar);
   border-bottom: 1px solid var(--border-color);
   padding: 8px 10px;
@@ -401,22 +452,22 @@ footer a:hover {
   padding: 6px 10px;
   font-size: 12px;
   font-weight: 500;
-  width: auto; /* Override 100% width from general .iconBtn */
+  width: auto;
 }
 
 .mobileCenter {
   font-weight: 600;
   font-size: 14px;
-  color: var(--text-light);
+  color: var(--primary-color);
   max-width: 40%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-/* End Mobile control bar */
 
 .CodeMirror {
-  min-height: 100%;
+  flex: 1;
+  min-height: 0;
   height: 100%;
   font-size: 16px;
   line-height: 1.5;
@@ -424,14 +475,16 @@ footer a:hover {
   font-family: var(--mono-font);
 }
 
-/* Chat Panel Styles (Adapted for VS Code Aesthetic) */
+/* Chat Panel Styles */
 
 .chatPanelWrap {
   background: var(--bg-sidebar);
   color: var(--text-light);
   display: flex;
   flex-direction: column;
-  border-left: 1px solid var(--border-color);
+  /* Cyberpunk: Subtle cyan border to separate from editor */
+  border-left: 1px solid rgba(34, 211, 238, 0.15); 
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .chatWrap {
@@ -444,14 +497,17 @@ footer a:hover {
   padding: 15px;
   border-bottom: 1px solid var(--border-color);
   text-align: left;
+  background: rgba(0, 0, 0, 0.2); /* Darker header */
 }
 
 .chatHeader h4 {
   margin: 0;
   font-size: 14px;
   text-transform: uppercase;
-  color: #888;
-  font-weight: 500;
+  color: var(--primary-color); /* Cyan text */
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-shadow: 0 0 8px rgba(34, 211, 238, 0.3);
 }
 
 .chatMessages {
@@ -463,41 +519,52 @@ footer a:hover {
 }
 
 .chatInputForm {
-  padding: 10px;
+  padding: 15px;
   border-top: 1px solid var(--border-color);
   display: flex;
-  gap: 5px;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .chatInput {
   flex-grow: 1;
   margin-bottom: 0;
-  background: #3c3c3c;
+  background: #121212; /* Darker input */
   color: var(--text-light);
   font-size: 14px;
-  padding: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(168, 85, 247, 0.3); /* Purple border */
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 .chatInput:focus {
   border-color: var(--primary-color);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); /* Cyan glow */
 }
 
 .sendBtn {
   background: var(--primary-color);
-  width: 70px;
-  padding: 8px;
-  font-weight: 500;
-  color: var(--bg-dark);
+  width: 75px;
+  padding: 10px;
+  font-weight: 600;
+  color: #000;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+  transition: all 0.3s ease;
 }
 
 .sendBtn:hover {
-  background: #a4e5f7;
+  background: #67e8f9;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+  transform: translateY(-1px);
 }
 
 .chatMessage {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   max-width: 95%;
 }
 
@@ -513,43 +580,68 @@ footer a:hover {
 }
 
 .chatAvatar {
-  margin: 0 8px;
+  margin: 0 10px;
   flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
 }
 
 .chatUsername {
   font-size: 11px;
-  color: #999;
-  margin-bottom: 2px;
-  font-weight: 400;
+  color: #888;
+  margin-bottom: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .chatText {
-  padding: 8px 12px;
-  border-radius: 4px; /* Flatter edges */
+  padding: 10px 14px;
+  border-radius: 6px; 
   max-width: 100%;
   word-wrap: break-word;
-  line-height: 1.4;
+  line-height: 1.5;
   font-size: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* Remote Messages (Other users) - Cyan Accent */
 .chatMessageRemote .chatText {
-  background: #3c3c3c;
+  background: #1A1A1A;
   color: var(--text-light);
-  border-top-left-radius: 4px;
+  border-top-left-radius: 2px;
+  border-left: 3px solid var(--primary-color); 
 }
 
+/* Local Messages (You) - Purple Accent */
 .chatMessageLocal .chatText {
-  background: var(
-    --copy-color
-  ); /* Use a less distracting color for local messages */
-  color: white;
-  border-top-right-radius: 4px;
+  background: rgba(168, 85, 247, 0.1); /* Transparent purple */
+  color: #fff;
+  border-top-right-radius: 2px;
+  border-right: 3px solid var(--secondary-color); 
+}
+.chatMessageLocal .chatUsername {
+  text-align: right;
+  color: var(--secondary-color);
+}
+
+/* Custom Scrollbar for Chat */
+.chatMessages::-webkit-scrollbar {
+  width: 6px;
+}
+.chatMessages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+.chatMessages::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.3);
+  border-radius: 10px;
+}
+.chatMessages::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.6);
 }
 
 /* --- Mobile Responsiveness (Max-width 768px) --- */
 
-/* New: Backdrop for closing mobile panels */
 .mobile-backdrop {
   position: fixed;
   top: 0;
@@ -557,7 +649,7 @@ footer a:hover {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 15; /* Below panels (z-index: 20) but above everything else */
+  z-index: 15; 
   display: none;
   transition: opacity 0.3s ease-in-out;
 }
@@ -568,28 +660,24 @@ footer a:hover {
 
 @media (max-width: 768px) {
   .mainWrap {
-    /* Single column layout on mobile */
     grid-template-columns: 1fr;
   }
 
-  /* Show mobile controls */
   .mobileControls {
     display: flex;
   }
 
-  /* Sidebar and Chat Panel become overlays/off-canvas elements */
   .aside,
   .chatPanelWrap {
     position: fixed;
     top: 0;
     bottom: 0;
-    z-index: 20; /* Above everything else */
-    width: 280px; /* Fixed width for the overlay */
+    z-index: 20; 
+    width: 280px; 
     transition: transform 0.3s ease-in-out;
     height: 100%;
   }
 
-  /* Default state: off-screen */
   .aside {
     transform: translateX(-100%);
     left: 0;
@@ -602,35 +690,31 @@ footer a:hover {
     border-left: none;
   }
 
-  /* Active state: on-screen */
   .aside.show-panel {
     transform: translateX(0);
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 0 15px rgba(168, 85, 247, 0.3);
   }
 
   .chatPanelWrap.show-panel {
     transform: translateX(0);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: -2px 0 15px rgba(168, 85, 247, 0.3);
   }
 
-  /* Editor is full width on mobile */
   .editorWrap {
     grid-column: 1 / -1;
   }
 
-  /* Hide the desktop controls and logo on mobile */
+  /* Hide the desktop logo and the new floating controls on mobile */
   .aside > .logo,
-  .aside > .controls {
+  .editorWrap > .controls {
     display: none;
   }
 
-  /* Re-enable display for internal sidebar parts that are now part of the overlay */
   .aside {
     display: flex;
   }
 }
 
-/* Optional: Adjustments for smaller screens (e.g., phones) */
 @media (max-width: 480px) {
   .formWrapper {
     padding: 20px;

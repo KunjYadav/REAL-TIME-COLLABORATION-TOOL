@@ -18,10 +18,9 @@ A collaborative real-time code editor built with React, Socket.IO, and Codemirro
 
 ## OUTPUT
 
-![Logo](https://github.com/user-attachments/assets/644c46a0-94d8-4710-ac0a-fcd57b589aee)
+<img width="1280" height="684" alt="Image" src="https://github.com/user-attachments/assets/8a68762f-82df-4c43-ac14-e38e60062208" />
 
-![Screenshot 1](https://github.com/user-attachments/assets/0f7d5a9b-1f67-4a15-b09f-e13555e9c1db)
-
+<img width="1279" height="682" alt="Image" src="https://github.com/user-attachments/assets/c38082ea-6094-467f-98d4-98ed619d93a7" />
 ## Features
 
 - **Real-Time Collaboration**: Multiple users can edit the same code simultaneously.

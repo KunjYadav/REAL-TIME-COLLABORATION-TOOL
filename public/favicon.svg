@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Rounded Background for better visibility on browser tabs -->
+  <rect width="24" height="24" rx="6" fill="#0F172A"/>
+  
+  <!-- The 'Code' Prompt -->
+  <path d="M6 8L10 12L6 16" stroke="#22D3EE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- The 'Sync' Cursor -->
+  <line x1="12" y1="16" x2="18" y2="16" stroke="#A855F7" stroke-width="2.5" stroke-linecap="round">
+    <animate attributeName="opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite" />
+  </line>
+</svg>
